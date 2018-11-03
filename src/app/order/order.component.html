@@ -1,0 +1,157 @@
+<section class="content-header">
+</section>
+
+<section class="content">
+  <section class="invoice">
+
+        <!-- VALID: {{ form.valid }} <br> -->
+        <!-- VALUES: {{ form.value | json }} <br> -->
+        <!-- <pre>{{ form | json }}</pre> -->
+
+        <form novalidate #form="ngForm" autocomplete="off">
+          <div class="row">
+            <div class="col-xs-12">
+              <h2 class="page-header">
+                <i class="fa fa-shopping-cart"></i> Finalize o seu pedido
+              </h2>
+            </div>
+          </div>                
+
+          <div class="row invoice-info">
+            <div class="col-xs-12">
+              <p class="lead">Endereço de Entrega:</p>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <mt-input-container label="Endereço" errorMessage="Campo obrigatório e com 5 caracteres">
+                <input ngModel required type="text" minlength="5" name="address" autocomplete="off"
+                  class="form-control" placeholder="Endereço"> <!-- #iptAddress="ngModel" -->
+              </mt-input-container>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <mt-input-container label="Número" errorMessage="Obrigatório e somente números">
+                <input ngModel required type="text" name="number" autocomplete="off" placeholder="Número"
+                  class="form-control" pattern="^[0-9]*$"> <!-- #iptNumber="ngModel" -->
+              </mt-input-container>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <mt-input-container label="Compemento">
+                <input ngModel type="text" name="optional" class="form-control" #iptOptional="ngModel"
+                  placeholder="Complemento">
+              </mt-input-container>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+              <p class="lead">Itens do Pedido:</p>
+            </div>
+            <div class="col-xs-12 table-responsive">
+
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th class="text-center">Quantidade</th>
+                  <th>Item</th>
+                  <th>Descrição</th>
+                  <th class="text-right">Subtotal</th>
+                  <th class="text-right"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td class="text-center">
+                    <a class="btn btn-sm"><i class="fa fa-minus"></i></a>
+                    1
+                    <a class="btn btn-sm"><i class="fa fa-plus"></i></a>
+                  </td>
+                  <td>Cup Cake</td>
+
+                  <td>Recheado com doce de leite</td>
+                  <td class="text-right">R$ 10,00</td>
+                  <td class="text-right">
+                    <a class="btn btn-sm danger"><i class="fa fa-remove"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">
+                    <a class="btn btn-sm"><i class="fa fa-minus"></i></a>
+                    1
+                    <a class="btn btn-sm"><i class="fa fa-plus"></i></a>
+                  </td>
+                  <td>Croissant</td>
+
+                  <td>Recheado com presunto e queijo</td>
+                  <td class="text-right">R$ 10,00</td>
+                  <td class="text-right">
+                    <a class="btn btn-sm danger "><i class="fa fa-remove"></i></a>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6 col-xs-12">
+              <p class="lead">Formas de Pagamento:</p>
+
+                <div class="form-group">
+                    <div>
+                      <label>
+                        <div class="iradio_flat-red checked" aria-checked="false" aria-disabled="false"
+                            style="position: relative;">
+                            <input type="radio" name="r3" class="flat-red" checked="" style="position: absolute; opacity: 0;"/>
+                            <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                        </div>
+                        Dinheiro
+                      </label>
+                    </div>
+                  <div>
+                    <label>
+                      <div class="iradio_flat-red" aria-checked="false" aria-disabled="false"
+                          style="position: relative;">
+                          <input type="radio" name="r3" class="flat-red" checked="" style="position: absolute; opacity: 0;"/>
+                          <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                      </div>
+                      Cartão de Débito
+                    </label>
+                  </div>
+
+                </div>
+
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <p class="lead">Frete e Total:</p>
+
+              <div class="table-responsive">
+                <table class="table">
+                  <tbody><tr>
+                    <th style="width:50%">Itens:</th>
+                    <td class="text-right">R$ 20,00</td>
+                  </tr>
+                  <tr>
+                    <th>Frete:</th>
+                    <td class="text-right">R$ 8,00</td>
+                  </tr>
+                  <tr>
+                    <th>Total:</th>
+                    <td class="text-right">R$ 28,00</td>
+                  </tr>
+                </tbody></table>
+              </div>
+            </div>
+          </div>
+
+        </form>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <button class="btn btn-success pull-right" [disabled]="form.invalid">
+              <i class="fa fa-credit-card"></i> Concluir Pedido
+            </button>
+          </div>
+        </div>
+
+  </section>
+</section>
