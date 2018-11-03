@@ -21,6 +21,7 @@ import { MenuItemComponent } from './restaurant-detail/menu-item/menu-item.compo
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 import { ShoppingCartService } from './restaurant-detail/shopping-cart/shopping-cart.service';
 import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shopping-cart.component';
+import { RadioComponent } from './shared/radio/radio.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
     RestaurantsComponent,
     ShoppingCartComponent,
     RestaurantDetailComponent,
+    RadioComponent,
   ],
   imports: [
     HttpModule,
