@@ -33,6 +33,7 @@ export class RadioComponent implements OnInit, ControlValueAccessor {
   writeValue(obj: any): void {
     this.value = obj;
   }
+
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }

@@ -25,7 +25,7 @@ export class ShoppingCartService{
         });
 
         if (itemFound) {
-            itemFound.quantity++;
+            this.increaseQty(itemFound);
         } else {
             this.items.push(new CartItem(item));
         }
@@ -33,13 +33,31 @@ export class ShoppingCartService{
         this.save();
     }
 
-    removeItem(item: MenuItem) {
+    removeItem(item: CartItem) {
         const itemFoundIndex = this.items.findIndex(cItem => {
-            return cItem.menuItem.id === item.id;
+            return cItem.menuItem.id === item.menuItem.id;
         });
         this.items.splice(itemFoundIndex, 1);
 
         this.save();
+    }
+
+    increaseQty(item: CartItem) {
+        item.quantity++;
+        this.save();
+    }
+
+    decreaseQty(item: CartItem) {
+        item.quantity--;
+        if (!item.quantity) {
+            this.remove(item);
+        }
+        this.save();
+    }
+
+    remove(item: CartItem) {
+        const index = this.items.indexOf(item);
+        this.items.splice(index, 1);
     }
 
     save() {
