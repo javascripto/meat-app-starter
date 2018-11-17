@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { OrderService } from './order.service';
 import { Order, OrderItem } from './order.model';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +19,10 @@ export class OrderComponent implements OnInit {
     { label: 'Cartão de Refeição', value: 'REF' },
   ];
 
-  constructor(private orderService: OrderService) { }
+  constructor(
+    private router: Router,
+    private orderService: OrderService,
+  ) { }
 
   ngOnInit() {
 
@@ -58,6 +62,7 @@ export class OrderComponent implements OnInit {
       .subscribe(order => {
         console.log(`Compra concluída: ${order.id}`, order);
         this.orderService.clear();
+        this.router.navigate(['/order-summary']);
       });
   }
 
