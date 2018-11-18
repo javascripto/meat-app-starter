@@ -9,7 +9,6 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { OrderService } from './order/order.service';
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
 import { OrderComponent } from './order/order.component';
 import { HeaderComponent } from './header/header.component';
 import { InputComponent } from './shared/input/input.component';
@@ -34,7 +33,6 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
     AppComponent,
     HomeComponent,
     MenuComponent,
-    AboutComponent,
     OrderComponent,
     InputComponent,
     RadioComponent,
