@@ -19,4 +19,5 @@ import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 
 import 'intl';
-import 'intl/locale-data/jsonp/pt-BR.js';
+import 'intl/locale-data/jsonp/pt-BR.js'; // Polyfill de internacionalização
+import 'web-animations-js/web-animations.min.js'; // Polyfill para Web Animations API em browsers antigos
