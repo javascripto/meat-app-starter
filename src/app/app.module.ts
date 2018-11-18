@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, PreloadAllModules } from '@angular/router';
 
 import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
@@ -40,7 +40,9 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
     RouterModule,
     BrowserModule,
     SharedModule.forRoot(), // no OrderModule o SharedModule é importado sem invocar o método forRoot (sem os providers)
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forRoot(ROUTES, {
+      preloadingStrategy: PreloadAllModules
+    }),
   ],
   providers: [ // Serviços disponivel em todos componentes deste módulo
     {
