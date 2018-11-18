@@ -8,7 +8,7 @@
         <!-- VALUES: {{ form.value | json }} <br> -->
         <!-- <pre>{{ form | json }}</pre> -->
 
-        <form novalidate #form="ngForm" autocomplete="off">
+        <form novalidate [formGroup]="orderForm" autocomplete="off">
           <div class="row">
             <div class="col-xs-12">
               <h2 class="page-header">
@@ -17,25 +17,55 @@
             </div>
           </div>                
 
-          <div class="row invoice-info">
+          <div class="row">
+            <div class="col-xs-12 col-sm-9">
+              <p class="lead">Seus Dados:</p>
+            </div>
+            <div class="col-xs-12 col-sm-3">
+              <span class="help-block pull-right has-error-block" *ngIf="orderForm.hasError('emailsNotMatch')">
+                <i class="fa fa-check"></i> E-mails não conferem
+              </span>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <mt-input-container label="Nome" errorMessage="Campo obrigatório e com 5 caracteres">
+                <input type="text" formControlName="name" autocomplete="off"
+                  class="form-control" placeholder="Nome">
+              </mt-input-container>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <mt-input-container label="E-mail" errorMessage="E-mail inválido">
+                <input type="text" formControlName="email" autocomplete="off" placeholder="E-mail"
+                  class="form-control">
+              </mt-input-container>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+              <mt-input-container label="E-mail" errorMessage="E-mail inválido">
+                <input type="text" formControlName="emailConfirmation" autocomplete="off" placeholder="Confirmação do E-mail"
+                  class="form-control">
+              </mt-input-container>
+            </div>
+          </div>
+
+          <!-- Com template forms, as validações e ngModel estavam na tag html, agora os campos são validados no componente -->
+          <div class="row">
             <div class="col-xs-12">
               <p class="lead">Endereço de Entrega:</p>
             </div>
             <div class="col-sm-6 col-xs-12">
               <mt-input-container label="Endereço" errorMessage="Campo obrigatório e com 5 caracteres">
-                <input ngModel required type="text" minlength="5" name="address" autocomplete="off"
+                <input type="text" formControlName="address" autocomplete="off"
                   class="form-control" placeholder="Endereço"> <!-- #iptAddress="ngModel" -->
               </mt-input-container>
             </div>
             <div class="col-sm-3 col-xs-6">
               <mt-input-container label="Número" errorMessage="Obrigatório e somente números">
-                <input ngModel required type="text" name="number" autocomplete="off" placeholder="Número"
-                  class="form-control" pattern="^[0-9]*$"> <!-- #iptNumber="ngModel" -->
+                <input type="text" formControlName="number" autocomplete="off" placeholder="Número"
+                  class="form-control"> <!-- #iptNumber="ngModel" -->
               </mt-input-container>
             </div>
             <div class="col-sm-3 col-xs-6">
               <mt-input-container label="Compemento">
-                <input ngModel type="text" name="optionalAddress" class="form-control"
+                <input type="text" formControlName="optionalAddress" class="form-control"
                   placeholder="Complemento"> <!-- #iptComplenet="ngModel" -->
               </mt-input-container>
             </div>
@@ -58,7 +88,7 @@
               <p class="lead">Formas de Pagamento:</p>
 
                 <div class="form-group">
-                  <mt-radio [options]="paymentOptions" name="paymentOption" ngModel required></mt-radio>
+                  <mt-radio [options]="paymentOptions" formControlName="paymentOption"></mt-radio>
                 </div>
 
             </div>
@@ -73,9 +103,9 @@
 
         <div class="row">
           <div class="col-xs-12">
-            <button (click)="checkOrder(form.value)"
+            <button (click)="checkOrder(orderForm.value)"
               class="btn btn-success pull-right"
-              [disabled]="form.invalid || !cartItems().length">
+              [disabled]="orderForm.invalid || !cartItems().length">
               <i class="fa fa-credit-card"></i> Concluir Pedido
             </button>
           </div>

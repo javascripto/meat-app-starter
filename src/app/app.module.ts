@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
@@ -55,6 +55,7 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
     FormsModule,
     RouterModule,
     BrowserModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES),
   ],
   providers: [ // Serviços disponivel em todos componentes deste módulo
