@@ -3,17 +3,14 @@ import { LOCALE_ID } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { OrderService } from './order/order.service';
+import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
 import { HeaderComponent } from './header/header.component';
-import { InputComponent } from './shared/input/input.component';
-import { RadioComponent } from './shared/radio/radio.component';
-import { RatingComponent } from './shared/rating/rating.component';
 import { RestaurantService } from './restaurants/restaurant.service';
 import { MenuComponent } from './restaurant-detail/menu/menu.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
@@ -34,9 +31,6 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
     HomeComponent,
     MenuComponent,
     OrderComponent,
-    InputComponent,
-    RadioComponent,
-    RatingComponent,
     HeaderComponent,
     ReviewsComponent,
     MenuItemComponent,
@@ -50,10 +44,9 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
   ],
   imports: [
     HttpModule,
-    FormsModule,
+    SharedModule,
     RouterModule,
     BrowserModule,
-    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES),
   ],
   providers: [ // Serviços disponivel em todos componentes deste módulo
