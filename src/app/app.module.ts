@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
+// import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
@@ -36,10 +36,10 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
   ],
   imports: [
     HttpModule,
-    CoreModule,
-    SharedModule,
+    // CoreModule, // Depreciado pelo metodo estatico do SharedModule que retorna um modulo com providers
     RouterModule,
     BrowserModule,
+    SharedModule.forRoot(), // no OrderModule o SharedModule é importado sem invocar o método forRoot (sem os providers)
     RouterModule.forRoot(ROUTES),
   ],
   providers: [ // Serviços disponivel em todos componentes deste módulo
