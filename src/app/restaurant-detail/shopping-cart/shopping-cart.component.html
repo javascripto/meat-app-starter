@@ -5,25 +5,25 @@
         <h3 class="box-title">Carrinho</h3>
     </div>
     <div class="box-body">
-        <div *ngIf="!items().length">
-            <p class="text-center">Seu carrinho está vazio</p>
-        </div>
-        <div *ngIf="items().length" class="table-responsive">
+        <div class="table-responsive">
             <table class="table">
                 <tbody>
-                    <tr *ngFor="let item of items()">
+                    <tr *ngFor="let item of items()" [@row]="rowState">
                         <th style="width:60%">({{ item.quantity }}x) {{ item.menuItem.name }}:</th>
                         <td class="text-right">{{ item.value() | currency: 'BRL': true }}</td>
                         <td class="text-right">
                             <a (click)="removeItem(item)" class="btn-btn-sm-danger"><i class="fa fa-remove"></i></a>
                         </td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="items().length">
                         <th>Total:</th>
                         <td class="text-right">{{ total() | currency: 'BRL': true }}</td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div *ngIf="!items().length">
+            <p class="text-center">Seu carrinho está vazio</p>
         </div>
     </div>
     <div class="box-footer" *ngIf="items().length">

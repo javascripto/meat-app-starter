@@ -22,7 +22,7 @@ export class ShoppingCartService{
             .reduce((prev, value) => prev + value, 0);
     }
 
-    addItem(item: MenuItem) {
+    addItem(item: MenuItem, silent = false) {
         const itemFound = this.items.find(cItem => {
             return cItem.menuItem.id === item.id;
         });
@@ -32,7 +32,8 @@ export class ShoppingCartService{
         } else {
             this.items.push(new CartItem(item));
         }
-        this.notificationService.notify(`Você adicionou um item ${item.name}`);
+        if (!silent)
+            this.notificationService.notify(`Você adicionou um item ${item.name}`);
         this.save();
     }
 
@@ -74,6 +75,6 @@ export class ShoppingCartService{
         JSON.parse(sessionStorage.getItem('shoppingCart') || '[]')
             .forEach(item => new Array(item.quantity)
                 .fill(0)
-                .forEach(() => this.addItem(item.menuItem)));
+                .forEach(() => this.addItem(item.menuItem, true)));
     }
 }

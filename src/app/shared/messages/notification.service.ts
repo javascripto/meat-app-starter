@@ -3,7 +3,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 @Injectable()
 export class NotificationService {
 
-  public notifier: EventEmitter<string> = new EventEmitter();
+  public notifier: EventEmitter<string|any> = new EventEmitter();
 
   constructor() { }
 
