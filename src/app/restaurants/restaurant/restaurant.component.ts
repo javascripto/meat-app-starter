@@ -17,7 +17,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class RestaurantComponent {
 
-  public restaurantState: string = 'ready';
+  public restaurantState = 'ready';
 
   @Input() restaurant: Restaurant;
 

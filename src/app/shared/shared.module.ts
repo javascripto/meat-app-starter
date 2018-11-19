@@ -18,7 +18,7 @@ import { ShoppingCartService } from 'app/restaurant-detail/shopping-cart/shoppin
   ],
   declarations: [
     InputComponent,
-    RadioComponent, 
+    RadioComponent,
     RatingComponent,
     SnackbarComponent,
   ],

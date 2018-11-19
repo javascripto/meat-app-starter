@@ -12,18 +12,29 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 })
 export class OrderComponent implements OnInit {
 
-  delivery: number = 8;
-  orderForm: FormGroup;
+  public delivery = 8;
+  public orderForm: FormGroup;
 
-  paymentOptions: RadioOption[] = [
+  public paymentOptions: RadioOption[] = [
     { label: 'Dinheiro',           value: 'MON' },
     { label: 'Cartão de Débito',   value: 'DEB' },
     { label: 'Cartão de Refeição', value: 'REF' },
   ];
 
+  static equalsTo(group: AbstractControl): { [key: string]: boolean} {
+    const email             = group.get('email');
+    const emailConfirmation = group.get('emailConfirmation');
+
+    if ((email.value  && emailConfirmation.value) &&
+        (email.value !== emailConfirmation.value)) {
+      return { emailsNotMatch: true };
+    }
+    return undefined;
+  }
+
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private orderService: OrderService,) { }
+              private orderService: OrderService) { }
 
   ngOnInit() {
     this.applyFormValidators();
@@ -62,8 +73,8 @@ export class OrderComponent implements OnInit {
     );
 
     this.orderService.checkOrder(newOrder)
-      .subscribe(order => {
-        console.log(`Compra concluída: ${order.id}`, order);
+      .subscribe(responseOrder => {
+        console.log(`Compra concluída: ${responseOrder.id}`, responseOrder);
         this.orderService.clear();
         this.router.navigate(['/order-summary']);
       });
@@ -76,11 +87,11 @@ export class OrderComponent implements OnInit {
       `^(([^<>()\\[\\]\\.,;:\\s@\\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\\"]+)*)|(\\".` +
       `+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$`, 'i'
     );
-    
+
     const numberPattern = /^[0-9]*$/;
 
     this.orderForm = fb.group({
-      optionalAddress:   fb.control('',),
+      optionalAddress:   fb.control(''),
       paymentOption:     fb.control('', [V.required]),
       name:              fb.control('', [V.required, V.minLength(5)]),
       address:           fb.control('', [V.required, V.minLength(5)]),
@@ -88,17 +99,6 @@ export class OrderComponent implements OnInit {
       number:            fb.control('', [V.required, V.pattern(numberPattern)]),
       emailConfirmation: fb.control('', [V.required, V.pattern(emailPattern)]),
     }, { validator: OrderComponent.equalsTo});
-  }
-
-  static equalsTo(group: AbstractControl): { [key: string]: boolean} {
-    const email             = group.get('email');
-    const emailConfirmation = group.get('emailConfirmation');
-
-    if ((email.value  && emailConfirmation.value) &&
-        (email.value !== emailConfirmation.value)) {
-      return { emailsNotMatch: true };
-    }
-    return undefined;
   }
 
 }

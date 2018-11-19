@@ -11,7 +11,7 @@ export class ReviewsComponent implements OnInit {
     public reviews: Observable<any>;
 
     constructor(
-        private route: ActivatedRoute,    
+        private route: ActivatedRoute,
         private restaurantService: RestaurantService,
     ) {}
 

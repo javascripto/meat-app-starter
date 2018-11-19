@@ -14,9 +14,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class RadioComponent implements OnInit, ControlValueAccessor {
-  
-  value: any;
-  onChange: any;
+
+  public value: any;
+  public onChange: any;
   @Input() options: RadioOption[];
 
 

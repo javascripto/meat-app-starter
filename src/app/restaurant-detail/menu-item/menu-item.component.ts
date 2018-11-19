@@ -17,7 +17,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class MenuItemComponent implements OnInit {
 
-    public menuItemState: string = 'ready';
+    public menuItemState = 'ready';
 
     @Input() menuItem: MenuItem;
     @Output() add = new EventEmitter<MenuItem>();

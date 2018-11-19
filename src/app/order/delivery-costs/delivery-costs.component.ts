@@ -6,8 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DeliveryCostsComponent implements OnInit {
 
-  @Input() delivery: number = 0;
-  @Input() itemsValue: number = 0;
+  @Input() delivery = 0;
+  @Input() itemsValue = 0;
 
   constructor() { }
 

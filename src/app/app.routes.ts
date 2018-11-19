@@ -18,7 +18,7 @@ export const ROUTES: Routes = [
     ]
   },
   { path: 'order', loadChildren: './order/order.module#OrderModule' },
-  { path: 'about', loadChildren: './about/about.module#AboutModule' }, // definindo lazy loading para modulo  
+  { path: 'about', loadChildren: './about/about.module#AboutModule' }, // definindo lazy loading para modulo
   { path: 'order-summary', component: OrderSummaryComponent },
   { path: '**', component: NotFoundComponent } // wildcard para bater com urls que não existem - sempre no final do array
 ];

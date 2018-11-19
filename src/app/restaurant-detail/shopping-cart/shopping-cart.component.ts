@@ -25,7 +25,7 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 })
 export class ShoppingCartComponent implements OnInit {
 
-    public rowState: string = 'ready';
+    public rowState = 'ready';
 
     constructor(private shoppingCartService: ShoppingCartService) {}
 

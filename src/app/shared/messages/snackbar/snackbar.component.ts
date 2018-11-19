@@ -27,8 +27,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class SnackbarComponent implements OnInit {
 
-  message: string = 'Hello dear';
-  snackVisibility: string = 'hidden';
+  public message = 'Hello dear';
+  public snackVisibility = 'hidden';
 
   constructor(private notificationService: NotificationService) { }
 
