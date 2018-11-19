@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 
@@ -38,9 +38,9 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
     RestaurantDetailComponent,
   ],
   imports: [
-    HttpModule,
     RouterModule,
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     SharedModule.forRoot(),
     // No OrderModule o SharedModule é importado
@@ -55,10 +55,10 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
     },
     // Alterando padrão de rotas  com cerquilha semelhante ao angular.js
     // para ambientes onde não se tem total controle da hospedagem
-    {
-      provide: LocationStrategy,
-      useClass: HashLocationStrategy,
-    },
+    // {
+    //   provide: LocationStrategy,
+    //   useClass: HashLocationStrategy,
+    // },
   ],
   bootstrap: [AppComponent]
 })
