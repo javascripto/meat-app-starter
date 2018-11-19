@@ -1,8 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/debounceTime';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/distinctUntilChanged';
 import { RestaurantService } from './restaurant.service';
 import { Restaurant } from './restaurant/restaurant.model';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-
 @Component({
   selector: 'mt-restaurants',
   templateUrl: './restaurants.component.html',
@@ -25,19 +32,55 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class RestaurantsComponent implements OnInit {
 
+  @ViewChild('searchInput') searchInput: ElementRef;
+
   public searchBarState = 'hidden';
   public restaurants: Restaurant[];
 
-  constructor(private restaurantService: RestaurantService) {}
+  public searchForm: FormGroup;
+  public searchControl: FormControl;
+
+  constructor(private formBuilder: FormBuilder,
+              private restaurantService: RestaurantService) {}
 
   ngOnInit() {
-    this.restaurantService.restaurants().subscribe(restaurants => {
-      this.restaurants = restaurants;
+    const fb = this.formBuilder;
+
+    this.searchControl = fb.control('');
+    this.searchForm = fb.group({
+      searchControl: this.searchControl
     });
+
+    this.searchControl.valueChanges
+      .debounceTime(500)
+      .distinctUntilChanged()
+      .do(searchTerm => console.log(`?q=${searchTerm}`))
+      .switchMap(searchTerm => 
+        this.restaurantService
+          .restaurants(searchTerm)
+          .catch(error => Observable.from([])))
+      .subscribe(restaurants => this.restaurants = restaurants);
+
+      // debouceTime atrasa a request antes de enviar ate q a valores de input deixem de mudar
+      // distinctUntilChanged  Só dispara cadeia caso valor seja diferente do anterior
+      // do funciona como um middleware
+      // switchMap faz unsubscribe de request anterior para q o retorno dela nao sobrescreva o retorno da ultima request
+      // O tratamento do erro em catch retorna um Observable vazio para não quebrar a stream
+
+    this.restaurantService.restaurants()
+      .subscribe(restaurants => this.restaurants = restaurants);
   }
 
-  public toggleSearch(): void {
-    this.searchBarState = this.searchBarState === 'hidden' ? 'visible' : 'hidden';
+  public toggleSearchVisibility(): void {
+    const input = this.searchInput.nativeElement;
+
+    if (this.searchBarState === 'hidden') {
+      this.searchBarState = 'visible';
+      input.focus();
+    } else {
+      this.searchBarState = 'hidden';
+      input.blur();
+    }
   }
 
 }
