@@ -21,7 +21,14 @@ export const ROUTES: Routes = [
     ]
   },
   { path: 'restaurants', component: RestaurantsComponent },
-  { path: 'order', loadChildren: './order/order.module#OrderModule', canLoad: [LoggedInGuard]}, // Não faz lazy loading se não passar pelo guarda
+  // canLoad Não faz carregamento do módulo se o guarda de rota não deixar
+  // canActivate controla acesso da rota, mesmo que o módulo ja tenha sido carregado uma vez
+  {
+    path: 'order',
+    loadChildren: './order/order.module#OrderModule',
+    canLoad: [ LoggedInGuard ],
+    canActivate: [ LoggedInGuard ]
+  },
   { path: 'about', loadChildren: './about/about.module#AboutModule' }, // definindo lazy loading para modulo
   { path: 'order-summary', component: OrderSummaryComponent },
   { path: '**', component: NotFoundComponent } // wildcard para bater com urls que não existem - sempre no final do array
