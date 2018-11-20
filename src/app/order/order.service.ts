@@ -4,7 +4,8 @@ import { Order } from './order.model';
 import { MEAT_API } from 'app/app.api';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LoginService } from 'app/security/login/login.service';
 import { CartItem } from 'app/restaurant-detail/shopping-cart/cart-item.model';
 import { ShoppingCartService } from 'app/restaurant-detail/shopping-cart/shopping-cart.service';
 
@@ -12,6 +13,7 @@ import { ShoppingCartService } from 'app/restaurant-detail/shopping-cart/shoppin
 export class OrderService {
     constructor(
         private http: HttpClient,
+        private loginService: LoginService,
         private shoppingCartService: ShoppingCartService,
     ) {}
 
@@ -36,7 +38,13 @@ export class OrderService {
     }
 
     checkOrder(order: Order): Observable<Order> {
-        return this.http.post<Order>(`${MEAT_API}/orders`, order);
+        let headers = new HttpHeaders();
+
+        if (this.loginService.isLoggedIn()) {
+            const { accessToken } = this.loginService.user;
+            headers = headers.set('Authorization', `Bearer ${accessToken}`);
+        }
+        return this.http.post<Order>(`${MEAT_API}/orders`, order, { headers });
     }
 
     clear() {

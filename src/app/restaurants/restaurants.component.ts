@@ -55,7 +55,7 @@ export class RestaurantsComponent implements OnInit {
       .debounceTime(500)
       .distinctUntilChanged()
       .do(searchTerm => console.log(`?q=${searchTerm}`))
-      .switchMap(searchTerm => 
+      .switchMap(searchTerm =>
         this.restaurantService
           .restaurants(searchTerm)
           .catch(error => Observable.from([])))

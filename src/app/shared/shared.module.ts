@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { OrderService } from 'app/order/order.service';
 import { InputComponent } from './input/input.component';
 import { RadioComponent } from './radio/radio.component';
+import { LoggedInGuard } from 'app/security/loggedIn.guard';
 import { RatingComponent } from './rating/rating.component';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { LoginService } from 'app/security/login/login.service';
@@ -40,6 +41,7 @@ export class SharedModule {
       providers: [
         OrderService,
         LoginService,
+        LoggedInGuard,
         RestaurantService,
         ShoppingCartService,
         NotificationService,

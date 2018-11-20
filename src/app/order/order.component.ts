@@ -61,7 +61,10 @@ export class OrderComponent implements OnInit {
   }
 
   checkOrder(order: Order) {
-    const { number, address, paymentOption, optionalAddress} = order;
+    const { name, email,
+      emailConfirmation, number,
+      address, paymentOption, optionalAddress
+    } = order;
 
     const orderItems = this.cartItems().map(cartItem => {
       const { quantity, menuItem } = cartItem;
@@ -69,7 +72,9 @@ export class OrderComponent implements OnInit {
     });
 
     const newOrder = new Order(
-      address, number, optionalAddress, paymentOption, orderItems
+      name, email, emailConfirmation,
+      address, number, optionalAddress,
+      paymentOption, orderItems
     );
 
     this.orderService.checkOrder(newOrder)
