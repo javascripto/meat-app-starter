@@ -17,6 +17,7 @@ export class RestaurantService {
     let params: HttpParams = undefined;
 
     if (search) {
+      // json-server tambem aceita queries de pesquisa
       params = new HttpParams().append('q', search);
     }
 
