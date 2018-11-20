@@ -1,3 +1,4 @@
+import 'rxjs/add/operator/do';
 import { Router } from '@angular/router';
 import { OrderService } from './order.service';
 import { Order, OrderItem } from './order.model';
@@ -5,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
 import { RadioOption } from 'app/shared/radio/radio-option.model';
 import { CartItem } from 'app/restaurant-detail/shopping-cart/cart-item.model';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-
 @Component({
   selector: 'mt-order',
   templateUrl: './order.component.html',
@@ -14,6 +14,7 @@ export class OrderComponent implements OnInit {
 
   public delivery = 8;
   public orderForm: FormGroup;
+  public orderCreated: Order;
 
   public paymentOptions: RadioOption[] = [
     { label: 'Dinheiro',           value: 'MON' },
@@ -78,8 +79,8 @@ export class OrderComponent implements OnInit {
     );
 
     this.orderService.checkOrder(newOrder)
+      .do((order: Order) => this.orderCreated = order)
       .subscribe(responseOrder => {
-        console.log(`Compra concluída: ${responseOrder.id}`, responseOrder);
         this.orderService.clear();
         this.router.navigate(['/order-summary']);
       });
@@ -104,6 +105,10 @@ export class OrderComponent implements OnInit {
       number:            fb.control('', [V.required, V.pattern(numberPattern)]),
       emailConfirmation: fb.control('', [V.required, V.pattern(emailPattern)]),
     }, { validator: OrderComponent.equalsTo});
+  }
+
+  public isOrderCompleted(): boolean {
+    return !!this.orderCreated;
   }
 
 }

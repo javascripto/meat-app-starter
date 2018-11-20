@@ -23,11 +23,12 @@ export const ROUTES: Routes = [
   { path: 'restaurants', component: RestaurantsComponent },
   // canLoad Não faz carregamento do módulo se o guarda de rota não deixar
   // canActivate controla acesso da rota, mesmo que o módulo ja tenha sido carregado uma vez
+  // canDeactivate deve ser declarado em rotas que apontem para um componente, ou seja no modulo de rota onde ele foi declarado
   {
     path: 'order',
     loadChildren: './order/order.module#OrderModule',
     canLoad: [ LoggedInGuard ],
-    canActivate: [ LoggedInGuard ]
+    canActivate: [ LoggedInGuard ],
   },
   { path: 'about', loadChildren: './about/about.module#AboutModule' }, // definindo lazy loading para modulo
   { path: 'order-summary', component: OrderSummaryComponent },
