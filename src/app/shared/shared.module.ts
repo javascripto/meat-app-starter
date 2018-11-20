@@ -4,6 +4,7 @@ import { InputComponent } from './input/input.component';
 import { RadioComponent } from './radio/radio.component';
 import { RatingComponent } from './rating/rating.component';
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import { LoginService } from 'app/security/login/login.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationService } from './messages/notification.service';
 import { RestaurantService } from 'app/restaurants/restaurant.service';
@@ -38,6 +39,7 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         OrderService,
+        LoginService,
         RestaurantService,
         ShoppingCartService,
         NotificationService,

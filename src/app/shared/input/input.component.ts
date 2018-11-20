@@ -1,13 +1,15 @@
 import { NgModel, FormControlName } from '@angular/forms';
 import { Component, OnInit, Input, ContentChild, AfterContentInit } from '@angular/core';
+import { asTextData } from '@angular/core/src/view';
 
 @Component({
   selector: 'mt-input-container',
   templateUrl: './input.component.html',
 })
 export class InputComponent implements OnInit, AfterContentInit {
-  input: any;
+  public input: any;
   @Input() label: string;
+  @Input() showTip = true;
   @Input() errorMessage: string;
   @ContentChild(NgModel) model: NgModel;
   @ContentChild(FormControlName) control: FormControlName;

@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './security/login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MenuComponent } from './restaurant-detail/menu/menu.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -27,6 +28,7 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
     AppComponent,
     HomeComponent,
     MenuComponent,
+    LoginComponent,
     HeaderComponent,
     ReviewsComponent,
     MenuItemComponent,
