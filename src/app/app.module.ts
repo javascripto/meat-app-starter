@@ -21,6 +21,7 @@ import { RestaurantComponent } from './restaurants/restaurant/restaurant.compone
 import { MenuItemComponent } from './restaurant-detail/menu-item/menu-item.component';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shopping-cart.component';
+import { UserDetailComponent } from './header/user-detail/user-detail.component';
 // import { CoreModule } from './core/core.module'; // Depreciado pelo metodo estatico do SharedModule que retorna um modulo com providers
 
 @NgModule({
@@ -38,6 +39,7 @@ import { ShoppingCartComponent } from './restaurant-detail/shopping-cart/shoppin
     OrderSummaryComponent,
     ShoppingCartComponent,
     RestaurantDetailComponent,
+    UserDetailComponent,
   ],
   imports: [
     RouterModule,
