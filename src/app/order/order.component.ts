@@ -5,7 +5,7 @@ import { Order, OrderItem } from './order.model';
 import { Component, OnInit } from '@angular/core';
 import { RadioOption } from 'app/shared/radio/radio-option.model';
 import { CartItem } from 'app/restaurant-detail/shopping-cart/cart-item.model';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
 @Component({
   selector: 'mt-order',
   templateUrl: './order.component.html',
@@ -96,15 +96,17 @@ export class OrderComponent implements OnInit {
 
     const numberPattern = /^[0-9]*$/;
 
-    this.orderForm = fb.group({
+    // name: new FormControl('', { updateOn: 'blur', validators: [V.required]})
+
+    this.orderForm = new FormGroup({
       optionalAddress:   fb.control(''),
       paymentOption:     fb.control('', [V.required]),
-      name:              fb.control('', [V.required, V.minLength(5)]),
+      name:              new FormControl('', { validators: [V.required, V.minLength(5)]}),
       address:           fb.control('', [V.required, V.minLength(5)]),
       email:             fb.control('', [V.required, V.pattern(emailPattern)]),
       number:            fb.control('', [V.required, V.pattern(numberPattern)]),
       emailConfirmation: fb.control('', [V.required, V.pattern(emailPattern)]),
-    }, { validator: OrderComponent.equalsTo});
+    }, { validators: [OrderComponent.equalsTo], updateOn: 'blur'});
   }
 
   public isOrderCompleted(): boolean {

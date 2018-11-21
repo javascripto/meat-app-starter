@@ -22,7 +22,7 @@ export const handleAuthorization = (req: Request, res: Response, next) => {
 const extractToken = (req: Request): string => {
     let token = undefined;
     if (req.headers && req.headers.authorization) {
-        const parts = req.headers.authorization.split(' ');
+        const parts = req.headers.authorization.toString().split(' ');
         if (parts.length === 2 && parts[0] === 'Bearer') {
             token = parts[1];
         }
