@@ -1,15 +1,10 @@
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/debounceTime';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/distinctUntilChanged';
+import { from } from 'rxjs';
 import { RestaurantService } from './restaurant.service';
 import { Restaurant } from './restaurant/restaurant.model';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { switchMap, tap, debounceTime, distinctUntilChanged, catchError } from 'rxjs/operators';
 @Component({
   selector: 'mt-restaurants',
   templateUrl: './restaurants.component.html',
@@ -52,14 +47,15 @@ export class RestaurantsComponent implements OnInit {
     });
 
     this.searchControl.valueChanges
-      .debounceTime(500)
-      .distinctUntilChanged()
-      .do(searchTerm => console.log(`?q=${searchTerm}`))
-      .switchMap(searchTerm =>
-        this.restaurantService
-          .restaurants(searchTerm)
-          .catch(error => Observable.from([])))
-      .subscribe(restaurants => this.restaurants = restaurants);
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap(searchTerm => console.log(`?q=${searchTerm}`)),
+        switchMap(searchTerm =>
+          this.restaurantService
+            .restaurants(searchTerm)
+            .pipe(catchError(() => from([]))))
+      ).subscribe(restaurants => this.restaurants = restaurants);
 
       // debouceTime atrasa a request antes de enviar ate q a valores de input deixem de mudar
       // distinctUntilChanged  Só dispara cadeia caso valor seja diferente do anterior

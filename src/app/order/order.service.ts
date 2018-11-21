@@ -1,9 +1,7 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
 import { Order } from './order.model';
 import { MEAT_API } from 'app/app.api';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { CartItem } from 'app/restaurant-detail/shopping-cart/cart-item.model';
 import { ShoppingCartService } from 'app/restaurant-detail/shopping-cart/shopping-cart.service';

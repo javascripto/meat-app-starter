@@ -1,4 +1,4 @@
-import 'rxjs/add/operator/do';
+import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { OrderService } from './order.service';
 import { Order, OrderItem } from './order.model';
@@ -79,7 +79,7 @@ export class OrderComponent implements OnInit {
     );
 
     this.orderService.checkOrder(newOrder)
-      .do((order: Order) => this.orderCreated = order)
+      .pipe(tap((order: Order) => this.orderCreated = order))
       .subscribe(responseOrder => {
         this.orderService.clear();
         this.router.navigate(['/order-summary']);
@@ -100,9 +100,9 @@ export class OrderComponent implements OnInit {
 
     this.orderForm = new FormGroup({
       optionalAddress:   fb.control(''),
-      paymentOption:     fb.control('', [V.required]),
-      name:              new FormControl('', { validators: [V.required, V.minLength(5)]}),
+      name:              fb.control('', [V.required, V.minLength(5)]),
       address:           fb.control('', [V.required, V.minLength(5)]),
+      paymentOption:     new FormControl('', { validators: [V.required]}),
       email:             fb.control('', [V.required, V.pattern(emailPattern)]),
       number:            fb.control('', [V.required, V.pattern(numberPattern)]),
       emailConfirmation: fb.control('', [V.required, V.pattern(emailPattern)]),
