@@ -20,14 +20,23 @@ export class LoginService {
 
   login({ email, password }): Observable<User> {
     return this.http.post<User>(`${MEAT_API}/login`, { email, password })
-      .pipe(tap((user: User) => this.user = user));
+      .pipe(
+        tap((user: User) => {
+          this.user = user;
+          sessionStorage.setItem('user', JSON.stringify(user));
+        }));
   }
 
   logout(): void {
     this.user = undefined;
+    sessionStorage.removeItem('user');
   }
 
   isLoggedIn(): boolean {
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    if (user) {
+      this.user = user;
+    }
     return !!this.user;
   }
 

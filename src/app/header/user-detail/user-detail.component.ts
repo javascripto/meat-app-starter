@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../security/login/user.model';
+import { Router } from '@angular/router';
 import { LoginService } from 'app/security/login/login.service';
 
 @Component({
@@ -9,7 +10,10 @@ import { LoginService } from 'app/security/login/login.service';
 })
 export class UserDetailComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(
+    private router: Router,
+    private loginService: LoginService
+  ) { }
 
   ngOnInit() {
   }
@@ -28,5 +32,10 @@ export class UserDetailComponent implements OnInit {
 
   public logout(): void {
     this.loginService.logout();
+
+    const url = this.router.url;
+    this.router.navigate(['/']);
+    setTimeout(() =>
+      this.router.navigate([url]), 100);
   }
 }
